@@ -1,4 +1,6 @@
+
 import java.util.Set;
+
 
 public abstract class Creature extends Thing {
 	
@@ -25,6 +27,22 @@ public abstract class Creature extends Thing {
 		
 		else {
 			System.out.println(String.format("%s has eaten a %s", this, stomach));
+		}
+	}
+	
+	//helper functions for testing
+	public String return_eat_instruction(Thing aThing) {
+		this.eat(aThing);
+		return(String.format("%s has just eaten a %s", this ,aThing));
+	}
+	
+	public String return_whatDidYouEat_instruction() {
+		if (stomach == null) {
+			return (String.format("%s has had nothing to eat!", this));
+		}
+		
+		else {
+			return (String.format("%s has eaten a %s", this, stomach));
 		}
 	}
 }

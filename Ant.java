@@ -10,4 +10,9 @@ public class Ant extends Creature{
 		System.out.println(String.format("%s is crawling around.", this));
 	}
 	
+	//helper method used for testing
+	
+	public String return_move_instruction() {
+		return (String.format("%s is crawling around.", this));
+	}
 }
