@@ -1,3 +1,4 @@
+package HW1.gradle.cs445Repo;
 
 
 public class Fly extends Creature implements Flyer{
@@ -7,7 +8,7 @@ public class Fly extends Creature implements Flyer{
 	}
 	
 	public void eat(Thing aThing) {
-		String className = aThing.getClass().getName();
+		String className = aThing.getClass().getName().substring(aThing.getClass().getName().lastIndexOf('.') + 1);
 		if (className.equals("Thing")) {
 			super.eat(aThing);
 		}
@@ -27,7 +28,7 @@ public class Fly extends Creature implements Flyer{
 	
 	//helper functions for testing
 	public String return_eat_instruction(Thing aThing) {
-		String className = aThing.getClass().getName();
+		String className = aThing.getClass().getName().substring(aThing.getClass().getName().lastIndexOf('.') + 1);
 		if (className.equals("Thing")) {
 			return super.return_eat_instruction(aThing);
 		}

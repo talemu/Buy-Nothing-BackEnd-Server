@@ -1,3 +1,5 @@
+package HW1.gradle.cs445Repo;
+
 
 public class Ant extends Creature{
 	

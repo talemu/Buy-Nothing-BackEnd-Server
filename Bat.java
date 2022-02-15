@@ -1,3 +1,4 @@
+package HW1.gradle.cs445Repo;
 
 
 public class Bat extends Creature implements Flyer{
@@ -8,8 +9,8 @@ public class Bat extends Creature implements Flyer{
 	
 	@Override
 	public void eat(Thing aThing) {
-		String className = aThing.getClass().getName();
-		if (className == "Thing") {
+		String className = aThing.getClass().getName().substring(aThing.getClass().getName().lastIndexOf('.') + 1);
+		if (className.equals("Thing")) {
 			System.out.println(String.format("%s won't eat %s", this, aThing));
 		}
 		else if (Creatures.contains(className)) {
@@ -30,8 +31,8 @@ public class Bat extends Creature implements Flyer{
 	
 	//helper functions for testing
 	public String return_eat_instruction(Thing aThing) {
-		String className = aThing.getClass().getName();
-		if (className == "Thing") {
+		String className = aThing.getClass().getName().substring(aThing.getClass().getName().lastIndexOf('.') + 1);
+		if (className.equals("Thing")) {
 			return (String.format("%s won't eat %s", this, aThing));
 		}
 		else if (Creatures.contains(className)) {

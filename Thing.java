@@ -1,3 +1,4 @@
+package HW1.gradle.cs445Repo;
 
 
 public class Thing {
@@ -14,11 +15,11 @@ public class Thing {
 	}
 	
 	public String toString() {
-		if ( this.getClass().getName().equals("Thing")) {
+		if ( this.getClass().getName().contains("Thing")) {
 			return this.name;
 		}
 		else {
-			return (this.name + " " + this.getClass().getName());
+			return (this.name + " " + this.getClass().getName().substring(this.getClass().getName().lastIndexOf('.') + 1));
 		}
 	}
 }

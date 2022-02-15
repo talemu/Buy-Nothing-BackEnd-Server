@@ -1,3 +1,4 @@
+package HW1.gradle.cs445Repo;
 
 import java.util.Set;
 
@@ -15,7 +16,8 @@ public abstract class Creature extends Thing {
 	
 	public void eat(Thing aThing) {
 		System.out.println(String.format("%s has just eaten a %s", this ,aThing));
-		stomach = aThing.getClass().getName();
+		stomach = aThing.getClass().getName().substring(aThing.getClass().getName().lastIndexOf('.') + 1);
+
 	}
 	
 	public abstract void move();
