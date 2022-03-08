@@ -1,21 +1,38 @@
+package edu.cs445.spring22;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import java.io.*;
 
 
 public class TestCreature{
-	public static final int THING_COUNT = 8;
-	public static final int CREATURE_COUNT = 5;
 	
 	public TestCreature() { 
 		
 	}
+	
+	
+	
 	@Test
 	public void test_Thing_toString() {
 		Thing test = new Thing("Eman");
 		assertEquals("Eman", test.toString());
 	}
+	
+	@Test
+    public void printTest() throws Exception {
+		Ant a = new Ant("tj");
+        OutputStream os = new ByteArrayOutputStream();
+        System.setOut((PrintStream) os);
+        a.move();	//Contains the Print Statement
+        String actualOutput = os.toString();
+        assertEquals("tj is crawling around.", actualOutput);
+    }
+
+	
+	public static final int THING_COUNT = 8;
+	public static final int CREATURE_COUNT = 5;
 	
 	@Test
 	public void test_Thing_constructor_built_with_name() {
@@ -163,52 +180,7 @@ public class TestCreature{
 		Bat b = new Bat("dracula");
 		assertEquals("dracula Bat has had nothing to eat!", b.return_whatDidYouEat_instruction());
 	}
-	
-	
-	
-	public static void main(java.lang.String[] args) {
-		/* Creating Creature Array of size CREATURE_COUNT
-		 */
-		Creature[] creatureArray = new Creature[CREATURE_COUNT];
-		
-		/* Adding items to creatureArray*/
-		creatureArray[0] = new Tiger("tigga");
-		creatureArray[1] = new Bat ("Vamp");
-		creatureArray[2] = new Fly ("bugg");
-		creatureArray[3] = new Ant ("ant");
-		creatureArray[4] = new Tiger("tiger king");
-		
-		/* Creating Thing Array of size THING_COUNT
-		 */
-		Thing[] thingArray = new Thing [THING_COUNT];
-		
-		/* Adding items to thingArray*/
-		thingArray[0] = new Thing ("Tabor");
-		thingArray[1] = new Thing ("Monti");
-		thingArray[2] = new Thing ("Adi");
-		
-		System.out.println(thingArray[0]);
-		
-		/*For loop to add creatures to thingArray, ensuring polymorphism*/
-		for (int i = 0; i < creatureArray.length; i++) {
-			thingArray [3+i] = creatureArray[i];
-		}
-		
-		System.out.println("Things:");
-		
-		/* Printing thingArray elements*/
-		for (int i = 0; i < thingArray.length; i++) {
-			System.out.println(thingArray[i]);	
-		}
-		System.out.println("\n");
-		
-		/* Printing thingArray elements that are not Things*/
-		for (int i = 0; i < thingArray.length; i++) {
-			if (thingArray[i].getClass().getName() == "Thing") {
-		}
-			else {
-				System.out.println(thingArray[i]);
-			}
-		}
-}
+
+
+
 }
