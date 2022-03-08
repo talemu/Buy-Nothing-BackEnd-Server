@@ -11,28 +11,92 @@ public class TestCreature{
 	public TestCreature() { 
 		
 	}
+	private final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	private final PrintStream standardOut = System.out;
 	
+	@BeforeEach
+	public void setUp() {
+		System.setOut(new PrintStream(baos));
+	}
+
+	@AfterEach
+	public void tearDown() {
+		System.setOut(standardOut);
+	}
 	
+	//testing system output methods (updated)
 	
+	@Test
+	public void testMove() {
+		Ant an = new Ant("mike");
+		an.move();
+		assertEquals("mike Ant is crawling around.", baos.toString().trim());
+	}
+	
+	@Test
+	public void test_tiger_move() {
+		Tiger tig = new Tiger("tg");
+		tig.move();
+		assertEquals("tg Tiger has just pounced.", baos.toString().trim());
+	}
+	
+	@Test
+	public void test_creature_WDYE_1() {
+		Tiger tig = new Tiger("tg");
+		Ant an = new Ant("ant");
+		tig.eat(an);
+		tig.whatDidYouEat();
+		assertEquals("tg Tiger has just eaten a ant Ant\ntg Tiger has eaten a Ant", baos.toString().trim());
+	}
+	
+	@Test
+	public void test_creature_WDYE_2() {
+		Tiger tig = new Tiger("tg");
+		tig.whatDidYouEat();
+		assertEquals("tg Tiger has had nothing to eat!", baos.toString().trim());
+	}
+	
+	@Test
+	public void test_bat_fly() {
+		Bat b = new Bat("draco");
+		b.fly();
+		assertEquals("draco Bat is swooping through the dark.", baos.toString().trim());
+	}
+	
+	@Test
+	public void test_bat_move() {
+		Bat b = new Bat("draco");
+		b.move();
+		assertEquals("draco Bat is swooping through the dark.", baos.toString().trim());
+	}
+	
+	@Test
+	public void test_bat_eat_thing() {
+		Thing t = new Thing("thingy");
+		Bat b = new Bat("draco");
+		b.eat(t);
+		assertEquals("draco Bat won't eat thingy", baos.toString().trim());
+	}
+	
+	@Test
+	public void test_fly_fly() {
+		Fly f = new Fly("buzz");
+		f.fly();
+		assertEquals("buzz Fly is buzzing around in flight.", baos.toString().trim());
+	}
+	
+	@Test
+	public void test_fly_move() {
+		Fly f = new Fly("buzz");
+		f.move();
+		assertEquals("buzz Fly is buzzing around in flight.", baos.toString().trim());
+	}
+
 	@Test
 	public void test_Thing_toString() {
 		Thing test = new Thing("Eman");
 		assertEquals("Eman", test.toString());
 	}
-	
-	@Test
-    public void printTest() throws Exception {
-		Ant a = new Ant("tj");
-        OutputStream os = new ByteArrayOutputStream();
-        System.setOut((PrintStream) os);
-        a.move();	//Contains the Print Statement
-        String actualOutput = os.toString();
-        assertEquals("tj is crawling around.", actualOutput);
-    }
-
-	
-	public static final int THING_COUNT = 8;
-	public static final int CREATURE_COUNT = 5;
 	
 	@Test
 	public void test_Thing_constructor_built_with_name() {
