@@ -206,5 +206,14 @@ public class TableLampTest {
 		assertEquals("<<Lightbulb off>>\nPush Button switched to ON\n<<Lightbulb on>>\nPush Button switched to OFF\n<<Lightbulb off>>", baos.toString().trim());
 	}
 	
+	@Test
+	public void test_connectLightbulb_with_lightbulb_attached_to_button() {
+		Lightbulb l = new Lightbulb();
+		Lightbulb l2 = new Lightbulb();
+		PushDownButton pd = new PushDownButton(l);
+		pd.connectLightbulb(l2);
+		assertEquals(pd.getLightbulb(), l2);
+		assertEquals(l2.getButton(), pd);
+	}
 
 }
