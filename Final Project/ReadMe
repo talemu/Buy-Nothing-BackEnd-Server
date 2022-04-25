@@ -1,4 +1,0 @@
-To build project exectuable:
-  1) open terminal
-  2) go to "\Final Project\Final Project CS445\RBuyNothing"
-  3) run "./gradlew build" command to build executable
