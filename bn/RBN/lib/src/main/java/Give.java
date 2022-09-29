@@ -8,9 +8,9 @@ import jakarta.validation.constraints.*;
 public class Give implements EntityInterface{
 	
 	@NotNull(message= "user id cant be null")
-	private UUID uid;
+	private String uid;
 	
-	private UUID gid;
+	private String gid;
 	
 	@NotNull (message = "type cannot be empty")
 	private String type;
@@ -28,12 +28,20 @@ public class Give implements EntityInterface{
 	@NotNull(message = "Date cannot be empty")
 	@Size(min = 20, max = 20, message = "invalid date")
 	@Past
-	private LocalDate date_created;
+	private String date_created;
 	
 	private boolean is_active;
 	
 	public Give() {
-		gid = UUID.randomUUID();
+		gid = UUID.randomUUID().toString();
+		this.date_created = LocalDate.now().toString();
+		this.startDate = this.date_created.toString();
+		
+		if (this.getEndDate() == null) {
+			this.setEndDate("");
+		}
+		
+		this.activateGive();
 		
 		if (this.extra_zip == null) {
 			this.extra_zip = new ArrayList <String>();
@@ -49,16 +57,49 @@ public class Give implements EntityInterface{
 		}
 	}
 	
-	public void setUID(UUID id) {
+	public Give updateThisGive(Give a) {
+		this.uid = this.uid;
+		this.gid = this.gid;
+		this.activateGive();
+		
+		this.date_created = a.getDateCreated();
+		this.extra_zip = a.getExtraZip();
+		this.setType(a.getType());
+		this.setDescription(a.getDescription());
+		
+		return this;
+	}
+	
+	public void setUID(String id) {
 		this.uid = id;
 	}
 	
-	public UUID getUID() {
+	public String getUID() {
 		return uid;
 	}
 	
-	public UUID getId() {
+	public String getId() {
 		return gid;
+	}
+	
+	public boolean matchesId(String tid) {
+		return (tid.equals(this.gid));
+	}
+	
+	public ArrayList<String> getExtraZip() {
+		return extra_zip;
+	}
+	
+	public String getEndDate() {
+		return endDate;
+	}
+	
+	public void setEndDate(String s) {
+		this.endDate = s;
+	}
+	
+	public void activateGive() {
+		this.is_active = true;
 	}
 	
 	public void deactivateGive() {
@@ -91,7 +132,7 @@ public class Give implements EntityInterface{
 	}
 
 	@Override
-	public LocalDate getDateCreated() {
+	public String getDateCreated() {
 		return date_created;
 	}
 	

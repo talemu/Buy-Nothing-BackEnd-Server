@@ -1,14 +1,21 @@
-import java.time.LocalDate;
+//import java.time.LocalDate;
+//import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
+import java.time.LocalDate;
+import com.google.gson.Gson;
+
+import static org.junit.Assert.assertEquals;
+
+import java.lang.*;
 
 public class AccountApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-
-		BNManager bn1 = new BNManager();
 		
-		Account a1 = new Account();
+		Account a1 = new Account();	
+		BNManager bn1 = new BNManager();
 		bn1.addNewAccount(a1);
 		Ask a = new Ask();
 		a1.addAsk(a);
@@ -26,19 +33,26 @@ public class AccountApplication {
 		g2.deactivateGive();
 		Thank t = new Thank();
 		a1.addThank(t);
+		Account ac2 = new Account();
+		ac2.addThankFrom(t);
 		bn1.addNewThank(t);
 		Note n = new Note();
 		a1.addNote(n);
 		bn1.addNewNote(n);
 		
+		Ask a5 = new Ask();
+		Give g5 = new Give();
+		Ask a6 = new Ask();
+		Give g6 = new Give();
+		bn1.addNewAsk(a5);
+		bn1.addNewGive(g5);
+		bn1.searchAndUpdate(a5.getId(), a6);
+		bn1.searchAndUpdate(g5.getId(), g6);
 		
-		Ask a3 = new Ask();
-		a3.addExtraZip("60073");
-		System.out.println(a3.getExtraZip());
-		bn1.addNewAsk(a3);
-		ArrayList <Ask> temp = bn1.containsArrayAsk("60073");
-		for (int i = 0; i < temp.size(); i++ ) {
-		}
+		System.out.println(a1.getGives().size());
+//		System.out.println(a6.get);
+
+//		a.contents();
 		
 		
 	}

@@ -1,6 +1,6 @@
-
-public class NullNote extends Note{
-	public boolean isNil() {
-		return true;
-	}
-}
+//
+//public class NullNote extends Note{
+//	public boolean isNil() {
+//		return true;
+//	}
+//}
