@@ -1,0 +1,46 @@
+Creating/Updating Account:
+
+  {
+    "uid" : "62",
+    "zip" : "60073",
+    "name" : "tabor",
+    "street" : "3433 south",
+    "phone" : "224-403-9894",
+    "isActive" : "false"
+   }
+
+Creating/Updating Ask:
+{
+    "uid" : "62",
+    "type" : "ask",
+    "description": "Can you send me a couple gifts?"
+}
+Will assign a unique aid for this ask
+
+Creating/Updating Give:
+{
+    "uid" : "62",
+    "type" : "gift",
+    "description": "gifting you 10 boxes of chocolate"
+    }
+Will assign a unique aid for this gid
+
+Creating/Updating Thank:
+{
+    "uid" : "62",
+    "thankTo" : "100",
+    "description": "help me"
+    }
+
+Will assign a unique tid for this thank (“tid” may also be inputted)
+
+Create/Updating Notes:
+{
+    "uid": "65",
+    "toType": "give",
+    "toUserId": "19",
+    "toId": "43",
+    "description": "Can I get braids this coming Monday?"
+    }
+
+ Will assign a unique nid for this note
