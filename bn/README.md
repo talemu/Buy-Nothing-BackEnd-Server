@@ -53,9 +53,9 @@ cd ~/Downloads ; sudo unzip -d /opt/tomcat apache-tomcat-10.0.16.zip`
 ```
 git clone git@bitbucket.org:vbistriceanu/2022-rest-jaxrs-lamp.git`
 ```
-(v) Build the executable:
+(v) Build the executable (for my project):
 ```
-cd 2022-rest-jaxrs-lamp/Rlamp
+cd bn/RBN
 ./gradlew clean
 ./gradle build
 ```
