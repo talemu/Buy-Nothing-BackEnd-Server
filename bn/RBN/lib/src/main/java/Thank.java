@@ -114,7 +114,7 @@ public class Thank implements EntityInterface{
 	}
 	
 	public boolean containsInThank(String substring) {
-		if (description.contains(substring)) {
+		if (description.toLowerCase().contains(substring)) {
 			return true;
 		}
 		else {

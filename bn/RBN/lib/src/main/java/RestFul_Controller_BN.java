@@ -38,7 +38,10 @@ public class RestFul_Controller_BN {
 		//
 		try {
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			String s = gson.toJson(bnm.searchAccountQuery(key, start_date,end_date));
+			
+			//to make key case insensitive
+			String key_insensitive = key.toLowerCase();
+			String s = gson.toJson(bnm.searchAccountQuery(key_insensitive, start_date,end_date));
 			return Response.status(Response.Status.OK).entity(s).build();
 		}
 		catch (Exception e){
@@ -76,7 +79,7 @@ public class RestFul_Controller_BN {
 	}
 	
 	@Path("/accounts/{uid}/activate")
-	@PUT
+	@GET
 	public Response activateAccount(@PathParam (value = "uid") String uid) throws Exception {
 		
 		try {
@@ -175,7 +178,7 @@ public class RestFul_Controller_BN {
 	}
 //	
 	@Path("/accounts/{uid}/asks/{aid}/deactivate")
-	@PUT
+	@GET
 	public Response deactivateAsk(@PathParam ("uid") String uid, @PathParam ("aid") String aid) {
 		try {
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -236,10 +239,11 @@ public class RestFul_Controller_BN {
 	
 	@Path("/accounts/{uid}/asks")
 	@GET
-	public Response getAllMyAsks(@PathParam ("uid") String uid) {
+	public Response getAllMyAsks(@PathParam ("uid") String uid, 
+			@DefaultValue ("true") @QueryParam("is_active") String is_active) {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		Account temp = bnm.searchAndReturn(uid);
-		ArrayList <Ask> returnedAsks= temp.getAsks();
+		ArrayList <Ask> returnedAsks= temp.getAsks(is_active);
 		String s = gson.toJson(returnedAsks);
 		return Response.status(Response.Status.OK).entity(s).build();
 	}
@@ -247,14 +251,23 @@ public class RestFul_Controller_BN {
 	@Path("/asks")
 	@GET
 	public Response getAllAsks(
+			@DefaultValue ("true") @QueryParam("is_active") String is_active,
 			@DefaultValue ("") @QueryParam("key") String key,
 			@DefaultValue ("01-01-1900") @QueryParam("start_date") String start_date,
 			@DefaultValue ("01-01-3000") @QueryParam("end_date") String end_date
 	) {
 		try {
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			ArrayList <Ask> returnedAsks = (ArrayList<Ask>) bnm.searchAskQuery(key, start_date, end_date);
-			returnedAsks.addAll(bnm.searchAccountQueryReturnAsks(key, start_date, end_date));
+			
+			//key case insensitivity
+			String key_insensitive = key.toLowerCase();
+			ArrayList <Ask> returnedAsks = (ArrayList<Ask>) bnm.searchAskQuery(is_active, key_insensitive, start_date, end_date);
+			ArrayList <Ask> returned_from_accounts = (ArrayList <Ask>) bnm.searchAccountQueryReturnAsks(key_insensitive, start_date, end_date);
+			for (int i = 0; i < returned_from_accounts.size(); i++) {
+				if (!returnedAsks.contains(returned_from_accounts.get(i))) {
+					returnedAsks.add(returned_from_accounts.get(i));
+				}
+			}
 			String s = gson.toJson(returnedAsks);
 			return Response.status(Response.Status.OK).entity(s).build();
 		}
@@ -311,7 +324,7 @@ public class RestFul_Controller_BN {
 	}
 	
 	@Path("/accounts/{uid}/gives/{gid}/deactivate")
-	@PUT
+	@GET
 	public Response deactivateGive(@PathParam ("uid") String uid, @PathParam ("gid") String gid) {
 		try {
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -413,8 +426,15 @@ public class RestFul_Controller_BN {
 	) {
 		try {
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			ArrayList <Give> returnedGives = (ArrayList<Give>) bnm.searchGiveQuery(key, start_date, end_date);
-			returnedGives.addAll(bnm.searchAccountQueryReturnGives(key, start_date, end_date));
+			
+			String key_insensitive = key.toLowerCase();
+			ArrayList <Give> returnedGives = (ArrayList<Give>) bnm.searchGiveQuery(key_insensitive, start_date, end_date);
+			ArrayList <Give> returned_from_accounts = (ArrayList <Give>) bnm.searchAccountQueryReturnGives(key_insensitive, start_date, end_date);
+			for (int i = 0; i < returned_from_accounts.size(); i++) {
+				if (!returnedGives.contains(returned_from_accounts.get(i))) {
+					returnedGives.add(returned_from_accounts.get(i));
+				}
+			}
 			String s = gson.toJson(returnedGives);
 			return Response.status(Response.Status.OK).entity(s).build();
 		}
@@ -436,6 +456,8 @@ public class RestFul_Controller_BN {
 				t.setTid(UUID.randomUUID().toString());
 			}
 			this.bnm.searchAndReturn(uid).addThank(t);
+			//the following method will work when there is an active
+			//account to send to
 //			this.bnm.searchAndReturn(t.getThankTo()).addThankFrom(t);
 			this.bnm.addNewThank(t);
 			URI askLocation = new URI("/rest-BN/api/accounts/" + uid + "/thanks/" + t.getId());
@@ -519,8 +541,15 @@ public class RestFul_Controller_BN {
 			) {
 		try {
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			ArrayList <Thank> returnedThanks = (ArrayList<Thank>) bnm.searchThankQuery(key, start_date, end_date);
-			returnedThanks.addAll(bnm.searchAccountQueryReturnThanks(key, start_date, end_date));
+			
+			String key_insensitive = key.toLowerCase();
+			ArrayList <Thank> returnedThanks = (ArrayList<Thank>) bnm.searchThankQuery(key_insensitive, start_date, end_date);
+			ArrayList <Thank> returned_from_accounts = (ArrayList <Thank>) bnm.searchAccountQueryReturnThanks(key_insensitive, start_date, end_date);
+			for (int i = 0; i < returned_from_accounts.size(); i++) {
+				if (!returnedThanks.contains(returned_from_accounts.get(i))) {
+					returnedThanks.add(returned_from_accounts.get(i));
+				}
+			}
 			String s = gson.toJson(returnedThanks);
 			return Response.status(Response.Status.OK).entity(s).build();
 		}
@@ -574,7 +603,9 @@ public class RestFul_Controller_BN {
 			) {
 		try {
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			ArrayList <Note> returnedNotes = (ArrayList<Note>) bnm.searchNoteQuery(c_by, v_by, type, agid, key, start_date, end_date);
+			
+			String key_insensitive = key.toLowerCase();
+			ArrayList <Note> returnedNotes = (ArrayList<Note>) bnm.searchNoteQuery(c_by, v_by, type, agid, key_insensitive, start_date, end_date);
 			String s = gson.toJson(returnedNotes);
 			return Response.status(Response.Status.OK).entity(s).build();
 		}

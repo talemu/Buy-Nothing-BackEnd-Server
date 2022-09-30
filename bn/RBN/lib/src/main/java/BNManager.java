@@ -227,7 +227,7 @@ public List<Thank> searchAccountQueryReturnThanks(String key, String s_d, String
 		else {
 			ObjectMapper mapper = new ObjectMapper();
 			Account a = mapper.readValue(json, Account.class);
-			a.setUID(temp.getId());
+			a.setUID(temp.getUID());
 			accounts.remove(temp);
 			accounts.add(a);
 			}
@@ -294,12 +294,12 @@ public List<Thank> searchAccountQueryReturnThanks(String key, String s_d, String
 	
 	public void searchAndDeleteAsk(String aid) throws Exception {
 		Ask temp = (Ask) findById(new Ask(), aid);
-		if (temp.isNil()) {
-			throw new Exception("Element does not exist");
-			}
-		else {
-			asks.remove(temp);
-			}
+//		if (temp.isNil()) {
+//			throw new Exception("Element does not exist");
+//			}
+//		else {
+//			asks.remove(temp);
+//			}
 	}
 	
 	public void searchAndDeleteGive(String gid) throws Exception {
@@ -380,9 +380,11 @@ public List<Thank> searchAccountQueryReturnThanks(String key, String s_d, String
 		}
     }
 	
-public List <Ask> searchAskQuery(String key, String s_d, String e_d) throws Exception {
+public List <Ask> searchAskQuery(String active_string, String key, String s_d, String e_d) throws Exception {
 		
 		try {
+			Boolean b = Boolean.parseBoolean(active_string);
+			
 			LocalDate start_date;
 			LocalDate end_date;
 			String[] startDateSplit = s_d.split("-",0);
@@ -414,7 +416,7 @@ public List <Ask> searchAskQuery(String key, String s_d, String e_d) throws Exce
 	            }
 				
 	            
-	            if(a.containsInAsk(key) && before && after) {
+	            if(a.containsInAsk(key) && b == a.getActive() && before && after) {
 	            	queriedAsks.add(a);
 	            }
 	        }

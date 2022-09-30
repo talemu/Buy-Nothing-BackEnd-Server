@@ -128,7 +128,7 @@ public class Note implements EntityInterface{
 	}
 	
 	public boolean containsInNotes(String substring) {
-		if (description.contains(substring)) {
+		if (description.toLowerCase().contains(substring)) {
 			return true;
 		}
 		else {

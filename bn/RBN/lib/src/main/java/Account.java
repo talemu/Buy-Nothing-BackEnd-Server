@@ -147,7 +147,7 @@ public class Account implements EntityInterface {
 	}
 	
 	public boolean containsInAccount(String substring) {
-		if (this.getName().contains(substring) || this.getStreet().contains(substring) || this.getZip().contains(substring) || this.getPicture().contains(substring) || this.getPhone().contains(substring)) {
+		if (this.getName().toLowerCase().contains(substring) || this.getStreet().toLowerCase().contains(substring) || this.getZip().toLowerCase().contains(substring) || this.getPicture().toLowerCase().contains(substring) || this.getPhone().toLowerCase().contains(substring)) {
 			return true;
 		}
 		else {
@@ -181,21 +181,19 @@ public class Account implements EntityInterface {
 		return userAsks;
 	}
 	
-	public ArrayList<Ask> getAsks(Boolean active) {
-		ArrayList <Ask> returningAsks = this.getAsks();
-		Iterator<Ask> as = returningAsks.listIterator();
-		int count = 0;
-        while(as.hasNext()) {
-            Ask a = as.next();
-            if(a.getActive() != active) {
-            	returningAsks.remove(count);
-            	count -= 1;
-            }
-            count += 1;
-        }
-        return returningAsks;
-        
-	}
+	public ArrayList<Ask> getAsks(String active_string) {
+			Boolean b = Boolean.parseBoolean(active_string);
+			
+			Iterator<Ask> as = userAsks.listIterator();
+			ArrayList<Ask> asks_w_activity = new ArrayList<Ask>();
+	        while(as.hasNext()) {
+	            Ask a = as.next();
+	            if(a.getActive() == b) {
+	            	asks_w_activity.add(a);
+	            }
+	        }		
+			return asks_w_activity;
+		}
 	
 	public ArrayList<Give> getGives() {
 		return userGives;

@@ -98,7 +98,7 @@ public class Ask implements EntityInterface{
 	}
 	
 	public boolean containsInAsk(String substring) {
-		if (type.contains(substring) || description.contains(substring) || extra_zip.contains(substring)) {
+		if (type.toLowerCase().contains(substring) || description.toLowerCase().contains(substring) || extra_zip.contains(substring)) {
 			return true;
 		}
 		else {

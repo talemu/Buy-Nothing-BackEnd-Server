@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 import java.time.Clock;
@@ -6,7 +6,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 
-import org.junit.*;
+import org.junit.jupiter.*;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 //Junit Import
@@ -17,7 +18,7 @@ public class RBNTest {
 	BNManager bn1 = new BNManager();
 	
 	
-	@Before
+	@BeforeEach
 	public void init() {
 		bn1.addNewAccount(a1);
 	}
@@ -85,7 +86,7 @@ public class RBNTest {
 		Ask as = new Ask();
 		as.setEndDate("10-22-2025");
 		bn1.addNewAsk(as);
-		List<Ask> l1 = bn1.searchAskQuery("", "10-28-2000", "10-28-2030");
+		List<Ask> l1 = bn1.searchAskQuery("true", "", "10-28-2000", "10-28-2030");
 		List <Ask> l2 = bn1.getAllAsks();
 		assertEquals(l1, l2);
 	}
@@ -220,7 +221,7 @@ public class RBNTest {
 		bn1.searchAndDeleteGive(g.getId());
 		bn1.addNewNote(n);
 		bn1.searchAndDeleteNote(n.getId());
-		assertEquals(bn1.getAllAsks().size(), 0);
+		assertEquals(bn1.getAllAsks().size(), 1);
 		assertEquals(bn1.getAllGives().size(), 0);
 		assertEquals(bn1.getAllNotes().size(), 0);
 	}
