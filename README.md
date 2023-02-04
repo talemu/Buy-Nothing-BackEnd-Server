@@ -4,4 +4,4 @@ This was my CS445 Final Project Application called Buy Nothing. This backend Ser
 
 Make sure to check out the Blog Article for this Project to get a reader-friendly glimpse on how it works.
 
-Repository includes the homework projects that display Java OOP skills such as class construction, inheritance, dependency inversion, and much more!
+This project was completed through the guidance of my professor, Prof. Virgil Bistriceanu
