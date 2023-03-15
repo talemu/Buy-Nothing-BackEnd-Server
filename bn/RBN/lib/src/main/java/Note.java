@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
-import jakarta.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 public class Note implements EntityInterface{
 	

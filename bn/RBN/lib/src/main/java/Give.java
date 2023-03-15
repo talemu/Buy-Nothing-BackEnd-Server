@@ -3,7 +3,9 @@
 import java.time.LocalDate;
 import java.util.*;
 
-import jakarta.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 public class Give implements EntityInterface{
 	

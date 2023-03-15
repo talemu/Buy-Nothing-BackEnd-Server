@@ -11,7 +11,8 @@ import java.net.*;
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 
-import jakarta.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 

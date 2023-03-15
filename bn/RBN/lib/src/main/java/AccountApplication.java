@@ -5,7 +5,6 @@ import java.util.List;
 import java.time.LocalDate;
 import com.google.gson.Gson;
 
-import static org.junit.Assert.assertEquals;
 
 import java.lang.*;
 
