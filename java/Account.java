@@ -1,6 +1,6 @@
-
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import javax.validation.constraints.NotNull;
@@ -37,6 +37,9 @@ public class Account implements EntityInterface {
 	
 //	@Past
 	private String dateCreated;
+	
+	// Last login timestamp - null if user has never logged in
+	private LocalDateTime lastLogin;
 	
 	//these two variable may be empty
 	
@@ -325,6 +328,18 @@ public class Account implements EntityInterface {
 	public String getId() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public LocalDateTime getLastLogin() {
+		return lastLogin;
+	}
+	
+	public void setLastLogin(LocalDateTime lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+	
+	public void updateLastLogin() {
+		this.lastLogin = LocalDateTime.now();
 	}
 	
 

@@ -660,5 +660,35 @@ public class RestFul_Controller_BN {
 		}
 	}
 	
+	
+	// New endpoint to get accounts sorted by last login
+	@Path("/accounts/sorted-by-login")
+	@GET
+	public Response getAccountsSortedByLastLogin() {
+		try {
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String s = gson.toJson(bnm.getAccountsSortedByLastLogin());
+			return Response.status(Response.Status.OK).entity(s).build();
+		}
+		catch (Exception e) {
+			return Response.status(Response.Status.BAD_REQUEST).entity(e).build();
+		}
+	}
+	
+	// Endpoint to simulate user login for testing
+	@Path("/accounts/{uid}/login")
+	@POST
+	public Response simulateUserLogin(@PathParam(value = "uid") String uid) {
+		try {
+			Account account = bnm.searchAndReturn(uid);
+			account.updateLastLogin();
+			return Response.status(Response.Status.OK).entity("Login timestamp updated successfully").build();
+		}
+		catch (NotFoundException e) {
+			return Response.status(Response.Status.NOT_FOUND).entity("Account not found for ID: " + uid).build();
+		}
+		catch (Exception e) {
+			return Response.status(Response.Status.BAD_REQUEST).entity(e).build();
+		}
+	}
 }
-		

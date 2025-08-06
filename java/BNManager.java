@@ -1,8 +1,7 @@
-
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -586,5 +585,32 @@ public List <Note> searchNoteQuery(String c, String v, String type, String agid,
 	
 	public List<Account> getAllAccounts() {
 		return(accounts);
+	}
+	
+	public List<Account> getAccountsSortedByLastLogin() {
+		List<Account> sortedAccounts = new ArrayList<>(accounts);
+		
+		// Sort accounts by lastLogin timestamp
+		// Users who have never logged in (null lastLogin) appear at the end
+		sortedAccounts.sort((a1, a2) -> {
+			LocalDateTime login1 = a1.getLastLogin();
+			LocalDateTime login2 = a2.getLastLogin();
+			
+			// Handle null values - users who never logged in go to the end
+			if (login1 == null && login2 == null) {
+				return 0; // Both null, maintain original order
+			}
+			if (login1 == null) {
+				return 1; // a1 goes after a2
+			}
+			if (login2 == null) {
+				return -1; // a1 goes before a2
+			}
+			
+			// Both have login times - sort by most recent first (descending order)
+			return login2.compareTo(login1);
+		});
+		
+		return sortedAccounts;
 	}
 }
